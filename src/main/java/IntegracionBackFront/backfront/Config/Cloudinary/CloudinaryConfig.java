@@ -23,9 +23,9 @@ public class CloudinaryConfig {
 
         //Crear un mapeo para guardar las claves del Cloudinary
         Map<String, String> config = new HashMap<>();
-        config.put("cloudName", dotenv.get("CLOUDINARY_CLOUD_NAME"));
-        config.put("apiKey", dotenv.get("CLOUDINARY_API_KEY"));
-        config.put("apiSecret", dotenv.get("CLOUDINARY_API_KEY"));
+        config.put("cloud_name", dotenv.get("CLOUDINARY_CLOUD_NAME"));
+        config.put("api_key", dotenv.get("CLOUDINARY_API_KEY"));
+        config.put("api_secret", dotenv.get("CLOUDINARY_API_SECRET"));
 
         //Retornar con las credenciales ya listas
         return new Cloudinary(config);

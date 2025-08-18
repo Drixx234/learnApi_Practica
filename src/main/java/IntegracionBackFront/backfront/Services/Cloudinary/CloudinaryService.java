@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class CloudinaryService {
@@ -44,9 +45,34 @@ public class CloudinaryService {
         return (String) uploadResult.get("secure_url");
     }
 
-//    public String uploadImage(MultipartFile file, String folder) throws IOException{
-//
-//    }
+
+    public String uploadImage(MultipartFile file, String folder) throws IOException{
+        //1. Validar imagen
+        validateImage(file);
+
+        //Generar un nombre unico para cada imagen
+        //Conservar la extension original
+        //Agregar un UUID para evitar coliciones
+
+        String originalFileName = file.getOriginalFilename();
+        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+        String uniqueFileName = "img..." + UUID.randomUUID() + fileExtension;
+
+        Map<String, Object> options = ObjectUtils.asMap(
+                "folder", folder,
+                "public_id", uniqueFileName,
+                "use_filename", false,
+                "unique_filename", false,
+                "overwrite", false,
+                "resource_type", "auto",
+                "quality", "auto.good"
+        );
+
+        //Subir archivo
+        Map<?, ?> uploadResult = cloudinary.uploader().upload(file.getBytes(), options);
+
+        return (String) uploadResult.get("secure_url");
+    }
 
     private void validateImage(MultipartFile file){
         //1. Verificar si el archivo esta vacio
@@ -72,7 +98,7 @@ public class CloudinaryService {
         }
 
         //Verifica que el tipo de MIME sea imagen
-        if (!file.getContentType().startsWith("imagen/")){
+        if (!file.getContentType().startsWith("image/")){
             throw new IllegalArgumentException("El archivo debe ser una imagen valida");
 
         }
