@@ -1,0 +1,14 @@
+SERVER_PORT=8080
+
+BD_URL="jdbc:oracle:thin:@localhost:1521:XE?useUnicode=true&characterEndcoding=UTF-8"
+BD_USERNAME="SECCION_1B"
+BD_PASSWORD="1B1234"
+BD_DRIVER="oracle.jdbc.OracleDriver"
+
+CLOUDINARY_CLOUD_NAME="dlr9pju9m"
+CLOUDINARY_API_KEY="692813741526694"
+CLOUDINARY_API_SECRET="Rau6cpSZjDphxF5FWsjmdnLuETQ"
+
+SECRET_KEY_JWT="_expotecnicaricaldone2025_learnapi_"
+SECURITY_JWT_ISSUER="learnApiBack"
+JWT_EXPIRATION="86400000"
